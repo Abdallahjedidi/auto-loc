@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -12,15 +13,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Maintenance {
+public class Equipement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idMaintenance;
-    @Column(nullable = false,length = 20)
-    private LocalDate datDebut;
-    @Column(nullable = false,  length = 20)
-    private LocalDate datFin;
+    private Long idEquipement;
     @Column(nullable = false, length = 20)
-    private String description;
+    private String libelle;
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Vehicule> vehicule;
 
 }

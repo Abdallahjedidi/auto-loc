@@ -3,6 +3,7 @@ package tn.esprit.autoloc.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -12,16 +13,17 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Reservation {
+public class Paiement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idReservation;
+    private Long idPaiement;
     @Column(nullable = false,length = 20)
-    private LocalDate datDebut;
+    private BigDecimal mantant;
     @Column(nullable = false,  length = 20)
-    private LocalDate datFin;
+    private LocalDate datPaiement;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private StatuResrvation statut;
-
+    private ModePaiement modePaiement;
+    @ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+    private Contrat contract;
 }

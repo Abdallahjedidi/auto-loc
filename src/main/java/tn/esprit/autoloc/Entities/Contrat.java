@@ -2,8 +2,11 @@ package tn.esprit.autoloc.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.action.internal.OrphanRemovalAction;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -12,15 +15,19 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Maintenance {
+public class Contrat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idMaintenance;
+    private Long idContrat;
     @Column(nullable = false,length = 20)
-    private LocalDate datDebut;
+    private LocalDate dateSignature;
     @Column(nullable = false,  length = 20)
-    private LocalDate datFin;
+    private BigDecimal MontantTotal;
     @Column(nullable = false, length = 20)
-    private String description;
+    private boolean valide;
+    @OneToOne
+    private Reservation reservation;
+    @OneToMany(cascade=CascadeType.ALL,mappedBy="contract", orphanRemoval =true,fetch=FetchType.LAZY)
+    private Set<Paiement> paiement;
 
 }

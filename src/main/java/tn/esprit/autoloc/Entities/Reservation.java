@@ -12,11 +12,21 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Equipement {
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEquipement;
+    private Long idReservation;
+    @Column(nullable = false,length = 20)
+    private LocalDate datDebut;
+    @Column(nullable = false,  length = 20)
+    private LocalDate datFin;
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String libelle;
-
+    private StatuResrvation statut;
+    @ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
+    private Vehicule vehicule;
+    @ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    private Client client;
+    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER,mappedBy="reservation")
+    private Contrat contrat;
 }

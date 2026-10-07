@@ -3,6 +3,8 @@ package tn.esprit.autoloc.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -10,16 +12,17 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Employe {
+public class Maintenance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEmploye;
+    private Long idMaintenance;
     @Column(nullable = false,length = 20)
-    private String nom;
+    private LocalDate datDebut;
     @Column(nullable = false,  length = 20)
-    private String prenom;
-    @Enumerated(EnumType.STRING)
+    private LocalDate datFin;
     @Column(nullable = false, length = 20)
-    private RoleEmploye role;
+    private String description;
+    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    private Vehicule vehicule;
 
 }

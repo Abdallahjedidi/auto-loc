@@ -3,7 +3,8 @@ package tn.esprit.autoloc.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -12,17 +13,23 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Agence {
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAgence;
+    private Long idClient;
     @Column(nullable = false, length = 20)
     private String nom;
     @Column(nullable = false, length = 20)
-    private String ville;
+    private String prenom;
     @Column(nullable = false, length = 20)
-    private String addresss;
+    private String email;
     @Column(nullable = false, unique = true, length = 20)
     private String telephone;
+    @Column(nullable = false, length = 20)
+    private String numPermis;
+    @Column(nullable = false, length = 20)
+    private LocalDate dateInscription;
+    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY,mappedBy="client")
+    private Set<Reservation> reservation;
 
 }

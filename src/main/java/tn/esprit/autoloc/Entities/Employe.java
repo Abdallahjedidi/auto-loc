@@ -3,8 +3,6 @@ package tn.esprit.autoloc.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
-
 @Entity
 @Getter
 @Setter
@@ -12,17 +10,18 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Agence {
+public class Employe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAgence;
-    @Column(nullable = false, unique = true, length = 20)
+    private Long idEmploye;
+    @Column(nullable = false,length = 20)
     private String nom;
-    @Column(nullable = false, unique = true, length = 20)
-    private String ville;
-    @Column(nullable = false, unique = true, length = 20)
-    private String addresss;
-    @Column(nullable = false, unique = true, length = 20)
-    private String telephone;
+    @Column(nullable = false,  length = 20)
+    private String prenom;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private RoleEmploye role;
+    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    private Agence agence;
 
 }
